@@ -14,7 +14,7 @@ const CONFIG = Object.freeze({
   TABLE_QUIZ:   'quiz',
 
   // Storage
-  STORAGE_BUCKET: 'anniversary-media',
+  STORAGE_BUCKET: 'anniversary',
 
   // Session keys
   SESSION_KEY:  'ann_session',
