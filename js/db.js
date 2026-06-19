@@ -86,7 +86,7 @@
     const { data, error } = await db
       .from(CONFIG.TABLE_HOSTS)
       .select('id, name')
-      .eq('pin', pin)
+      .eq('guest_pin', pin)
       .maybeSingle();
     if (error) throw error;
     return data; // null if not found
@@ -107,8 +107,8 @@
   async function lookupGuestByPin(pin) {
     const { data, error } = await db
       .from(CONFIG.TABLE_BOOKS)
-      .select('id, name, message, pin')
-      .eq('pin', pin)
+      .select('*')
+      .eq('guest_pin', pin)
       .maybeSingle();
     if (error) throw error;
     return data;
@@ -117,7 +117,7 @@
   async function getGuestById(id) {
     const { data, error } = await db
       .from(CONFIG.TABLE_BOOKS)
-      .select('id, name, message, pin')
+      .select('*')
       .eq('id', id)
       .maybeSingle();
     if (error) throw error;
@@ -130,7 +130,7 @@
       .select('*')
       .order('created_at', { ascending: false });
     if (searchTerm) {
-      query = query.or(`name.ilike.%${searchTerm}%,pin.ilike.%${searchTerm}%`);
+      query = query.or(`couple_name.ilike.%${searchTerm}%,guest_pin.ilike.%${searchTerm}%`);
     }
     const { data, error } = await query;
     if (error) throw error;
