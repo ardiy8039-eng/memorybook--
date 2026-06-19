@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Anniversary Book — Enter your private PIN to access your memories.">
+  <title>Anniversary Book</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="page-shell" role="main">
+    <header class="brand-bar">
+      <p class="eyebrow">Anniversary Book</p>
+      <h1>A Journey of Life &amp; Love</h1>
+    </header>
+
+    <div class="login-card">
+      <section class="welcome-panel">
+        <h2>Private Access</h2>
+        <p>Enter your unique 4-digit PIN to open the Anniversary Book and share memories.</p>
+      </section>
+
+      <form id="loginForm" class="login-form" autocomplete="off" novalidate>
+        <div class="form-group">
+          <label for="pinInput">Your PIN</label>
+          <input
+            id="pinInput"
+            name="pin"
+            type="password"
+            inputmode="numeric"
+            maxlength="4"
+            placeholder="••••"
+            autocomplete="one-time-code"
+            required
+            aria-describedby="loginMessage"
+          >
+        </div>
+        <button type="submit" class="btn btn-primary">Enter Book</button>
+        <p id="loginMessage" class="toast-message" role="alert" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/login.js"></script>
+</body>
+</html>

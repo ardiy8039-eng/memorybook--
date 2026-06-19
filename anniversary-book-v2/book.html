@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>The Anniversary Book</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/book.css">
+</head>
+<body>
+  <div class="book-shell">
+
+    <!-- ── Header ──────────────────────────────────────────────────────── -->
+    <header class="book-header">
+      <div>
+        <p class="eyebrow">Guest Experience</p>
+        <h1>The Anniversary Book</h1>
+      </div>
+      <div class="top-actions">
+        <button id="openGalleryButton" class="btn btn-secondary">Open Gallery</button>
+        <button id="playMusicButton"   class="btn btn-primary">Play Music</button>
+      </div>
+    </header>
+
+    <!-- ── Welcome ─────────────────────────────────────────────────────── -->
+    <section class="hero-card" aria-label="Welcome">
+      <div class="hero-copy">
+        <p class="eyebrow">Welcome back</p>
+        <h2>Hello, <span data-guest-name>friend</span> ✨</h2>
+        <p>Your anniversary book is ready. Flip through the pages to explore memories, messages, and moments.</p>
+      </div>
+    </section>
+
+    <!-- ── Flip book ────────────────────────────────────────────────────── -->
+    <section id="flipBookSection" class="flipbook-section hidden" aria-label="Anniversary book pages" aria-hidden="true">
+
+      <div class="flipbook-stage" role="region" aria-label="Book pages">
+
+        <!-- Page 1: Welcome -->
+        <div class="page" data-page="1" aria-hidden="false">
+          <article class="page-inner">
+            <h3>Memories</h3>
+            <p>A luxury anniversary experience awaits. Flip through to discover photos, video stories, and heartfelt messages.</p>
+          </article>
+        </div>
+
+        <!-- Page 2: Guest messages -->
+        <div class="page" data-page="2" aria-hidden="true">
+          <article class="page-inner">
+            <h3>Guest Messages</h3>
+            <div id="guestMessages" class="message-list" aria-live="polite"></div>
+          </article>
+        </div>
+
+        <!-- Page 3: Gallery -->
+        <div class="page" data-page="3" aria-hidden="true">
+          <article class="page-inner gallery-panel">
+            <h3>Gallery</h3>
+            <div id="bookGallery" class="gallery-grid" aria-live="polite"></div>
+          </article>
+        </div>
+
+        <!-- Page 4: Quiz -->
+        <div class="page" data-page="4" aria-hidden="true">
+          <article class="page-inner quiz-panel">
+            <h3>A Question for You</h3>
+            <div id="quizPrompt" class="quiz-prompt" aria-live="polite"></div>
+          </article>
+        </div>
+
+      </div>
+
+      <div class="flip-controls" role="navigation" aria-label="Page navigation">
+        <button id="prevPage" class="btn btn-ghost" disabled aria-label="Previous page">← Previous</button>
+        <span id="pageCounter" class="page-counter" aria-live="polite">1 / 4</span>
+        <button id="nextPage"  class="btn btn-ghost" aria-label="Next page">Next →</button>
+      </div>
+
+    </section>
+
+  </div>
+
+  <!-- ── Gallery modal ───────────────────────────────────────────────── -->
+  <div id="mediaModal" class="modal hidden" role="dialog" aria-modal="true" aria-label="Media gallery" aria-hidden="true">
+    <div class="modal-content">
+      <button id="closeMediaModal" class="modal-close" aria-label="Close gallery">×</button>
+      <h2>Gallery</h2>
+      <div id="mediaList" class="media-list" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/book.js"></script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Host Dashboard — Anniversary Book</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+  <div class="dashboard-shell">
+
+    <!-- ── Sidebar ─────────────────────────────────────────────────────── -->
+    <aside class="dashboard-sidebar" aria-label="Dashboard navigation">
+      <div class="brand-block">
+        <span class="brand-mark" aria-hidden="true">AB</span>
+        <div>
+          <p class="eyebrow">Host Dashboard</p>
+          <p class="host-display-name" data-host-name>Loading…</p>
+        </div>
+      </div>
+
+      <nav class="dashboard-nav">
+        <button class="nav-link active" data-panel="customersPanel">Guests</button>
+        <button class="nav-link" data-panel="galleryPanel">Media Gallery</button>
+        <button class="nav-link" data-panel="quizPanel">Quiz</button>
+        <button class="nav-link" data-panel="settingsPanel">Settings</button>
+      </nav>
+
+      <div class="dashboard-footer">
+        <button id="signOutButton" class="btn btn-ghost btn-full">Sign Out</button>
+      </div>
+    </aside>
+
+    <!-- ── Main content ────────────────────────────────────────────────── -->
+    <main class="dashboard-main">
+
+      <!-- Guests panel -->
+      <section id="customersPanel" class="panel active-panel" aria-label="Guest management">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">Customer management</p>
+            <h2>Guest List</h2>
+          </div>
+          <button id="newCustomerButton" class="btn btn-primary">Add Guest</button>
+        </div>
+
+        <div class="search-bar">
+          <label for="customerSearch" class="sr-only">Search guests</label>
+          <input id="customerSearch" type="search" placeholder="Search by name or PIN…" aria-label="Search guests">
+        </div>
+
+        <div id="customerTableWrapper" class="table-wrapper" aria-live="polite"></div>
+      </section>
+
+      <!-- Gallery panel -->
+      <section id="galleryPanel" class="panel" aria-label="Media gallery" hidden>
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">Media uploads</p>
+            <h2>Gallery &amp; Storage</h2>
+          </div>
+          <button id="uploadLibraryButton" class="btn btn-primary">Upload Media</button>
+        </div>
+
+        <div class="upload-box" id="uploadDropZone" role="button" tabindex="0" aria-label="Drop zone for media files">
+          <p>Drop images or videos here, or click to choose files</p>
+          <input id="galleryFileInput" type="file" accept="image/*,video/*" multiple hidden aria-hidden="true">
+        </div>
+
+        <div class="progress-group">
+          <label for="uploadProgress">Upload progress</label>
+          <progress id="uploadProgress" value="0" max="100"></progress>
+          <p id="progressLabel" aria-live="polite">No files uploading.</p>
+        </div>
+
+        <div id="galleryGrid" class="gallery-grid" aria-live="polite"></div>
+      </section>
+
+      <!-- Quiz panel -->
+      <section id="quizPanel" class="panel" aria-label="Quiz builder" hidden>
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">Memory quiz</p>
+            <h2>Quiz Builder</h2>
+          </div>
+        </div>
+
+        <div class="quiz-builder">
+          <p class="muted">Create a fun question for guests to answer when they visit the book.</p>
+          <div class="quiz-card">
+            <div class="quiz-field">
+              <label for="quizQuestion">Question</label>
+              <input id="quizQuestion" type="text" placeholder="Which memory is most special?">
+            </div>
+            <div class="quiz-field-row">
+              <div class="quiz-field">
+                <label for="quizAnswer1">Option 1</label>
+                <input id="quizAnswer1" type="text" placeholder="Answer option">
+              </div>
+              <div class="quiz-field">
+                <label for="quizAnswer2">Option 2</label>
+                <input id="quizAnswer2" type="text" placeholder="Answer option">
+              </div>
+            </div>
+            <div class="quiz-field-row">
+              <div class="quiz-field">
+                <label for="quizAnswer3">Option 3</label>
+                <input id="quizAnswer3" type="text" placeholder="Answer option">
+              </div>
+              <div class="quiz-field">
+                <label for="quizAnswer4">Option 4</label>
+                <input id="quizAnswer4" type="text" placeholder="Answer option">
+              </div>
+            </div>
+            <button id="saveQuizButton" class="btn btn-primary">Save Quiz</button>
+            <p id="quizMessage" class="toast-message" role="alert" aria-live="polite"></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Settings panel -->
+      <section id="settingsPanel" class="panel" aria-label="Settings" hidden>
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">Configuration</p>
+            <h2>Settings</h2>
+          </div>
+        </div>
+        <div class="settings-grid">
+          <article class="settings-card">
+            <h3>Host account</h3>
+            <p>Logged in as <strong data-host-name>—</strong></p>
+          </article>
+          <article class="settings-card">
+            <h3>Storage</h3>
+            <p>Bucket: <code>anniversary-media</code></p>
+            <p class="muted">Media is stored in Supabase Storage and served via signed URLs.</p>
+          </article>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ── Customer modal ─────────────────────────────────────────────────── -->
+  <div id="customerModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-content">
+      <button class="modal-close" id="customerModalClose" aria-label="Close dialog">×</button>
+      <h3 id="modalTitle">Add Guest</h3>
+      <div class="modal-form">
+        <div class="field-row">
+          <label for="customerName">Name</label>
+          <input id="customerName" type="text" required autocomplete="off">
+        </div>
+        <div class="field-row">
+          <label for="customerMessage">Personal message</label>
+          <textarea id="customerMessage" rows="3" required placeholder="A short message shown in the book…"></textarea>
+        </div>
+        <div class="field-row pin-row">
+          <label for="customerPin">Guest PIN</label>
+          <div class="pin-input-group">
+            <input id="customerPin" type="text" inputmode="numeric" maxlength="4" pattern="\d{4}" required autocomplete="off">
+            <button type="button" id="generatePinButton" class="btn btn-secondary btn-sm">Generate</button>
+          </div>
+        </div>
+        <input id="customerId" type="hidden">
+        <div class="modal-actions">
+          <button id="saveCustomerButton" type="button" class="btn btn-primary">Save Guest</button>
+        </div>
+      </div>
+      <p id="modalMessage" class="toast-message" role="alert" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
