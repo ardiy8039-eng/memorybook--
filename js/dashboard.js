@@ -367,8 +367,8 @@
           const path = await AnnDB.uploadFileToStorage(file);
           await AnnDB.createMediaRecord({
             title:       original.name,
-            path,
-            type,
+            file_url: path,
+            file_type: type,
             uploaded_at: new Date().toISOString(),
           });
           uploadedSignatures.add(sig);

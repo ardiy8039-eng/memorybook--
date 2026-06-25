@@ -86,9 +86,9 @@
     const { data, error } = await db
       .from(CONFIG.TABLE_HOSTS)
       .select('id, name')
-      .eq('pin', pin)
+      .eq('guest_pin', pin)
       .maybeSingle();
-    if (error) { alert(error.message); throw error; }
+    if (error) throw error;
     return data; // null if not found
   }
 
@@ -98,7 +98,7 @@
       .select('id, name')
       .eq('id', id)
       .maybeSingle();
-    if (error) { alert(error.message); throw error; }
+    if (error) throw error;
     return data;
   }
 
@@ -108,9 +108,9 @@
     const { data, error } = await db
       .from(CONFIG.TABLE_BOOKS)
       .select('*')
-      .eq('pin', pin)
+      .eq('guest_pin', pin)
       .maybeSingle();
-    if (error) { alert(error.message); throw error; }
+    if (error) throw error;
     return data;
   }
 
@@ -120,7 +120,7 @@
       .select('*')
       .eq('id', id)
       .maybeSingle();
-    if (error) { alert(error.message); throw error; }
+    if (error) throw error;
     return data;
   }
 
@@ -130,10 +130,10 @@
       .select('*')
       .order('created_at', { ascending: false });
     if (searchTerm) {
-      query = query.or(`couple_name.ilike.%${searchTerm}%,pin.ilike.%${searchTerm}%`);
+      query = query.or(`couple_name.ilike.%${searchTerm}%,guest_pin.ilike.%${searchTerm}%`);
     }
     const { data, error } = await query;
-    if (error) { alert(error.message); throw error; }
+    if (error) throw error;
     return data ?? [];
   }
 
@@ -143,7 +143,7 @@
       .insert([payload])
       .select()
       .single();
-    if (error) { alert(error.message); throw error; }
+    if (error) throw error;
     return data;
   }
 
@@ -154,7 +154,7 @@
       .eq('id', id)
       .select()
       .single();
-    if (error) { alert(error.message); throw error; }
+    if (error) throw error;
     return data;
   }
 
@@ -163,7 +163,7 @@
       .from(CONFIG.TABLE_BOOKS)
       .delete()
       .eq('id', id);
-    if (error) { alert(error.message); throw error; }
+    if (error) throw error;
   }
 
   // ─── Media ──────────────────────────────────────────────────────────────────
@@ -173,7 +173,7 @@
       .from(CONFIG.TABLE_MEDIA)
       .select('*')
       .order('uploaded_at', { ascending: false });
-    if (error) { alert(error.message); throw error; }
+    if (error) throw error;
     return data ?? [];
   }
 
@@ -183,7 +183,7 @@
       .insert([record])
       .select()
       .single();
-    if (error) { alert(error.message); throw error; }
+    if (error) throw error;
     return data;
   }
 
@@ -192,14 +192,14 @@
       .from(CONFIG.TABLE_MEDIA)
       .delete()
       .eq('id', id);
-    if (error) { alert(error.message); throw error; }
+    if (error) throw error;
   }
 
   async function getMediaSignedUrl(path) {
     const { data, error } = await db.storage
       .from(CONFIG.STORAGE_BUCKET)
       .createSignedUrl(path, 3600);
-    if (error) { alert(error.message); throw error; }
+    if (error) throw error;
     return data.signedUrl;
   }
 
@@ -209,7 +209,7 @@
     const { data, error } = await db.storage
       .from(CONFIG.STORAGE_BUCKET)
       .upload(safeName, file, { cacheControl: '3600', upsert: false });
-    if (error) { alert(error.message); throw error; }
+    if (error) throw error;
     return data?.path ?? safeName;
   }
 
@@ -217,7 +217,7 @@
     const { error } = await db.storage
       .from(CONFIG.STORAGE_BUCKET)
       .remove([path]);
-    if (error) { alert(error.message); throw error; }
+    if (error) throw error;
   }
 
   // ─── Quiz ───────────────────────────────────────────────────────────────────
@@ -229,7 +229,7 @@
         .select('*')
         .eq('id', 1)
         .maybeSingle();
-      if (error) { alert(error.message); throw error; }
+      if (error) throw error;
       return data ?? CONFIG.DEFAULT_QUIZ;
     } catch {
       return CONFIG.DEFAULT_QUIZ;
@@ -242,7 +242,7 @@
       .upsert({ id: 1, ...payload }, { onConflict: 'id' })
       .select()
       .single();
-    if (error) { alert(error.message); throw error; }
+    if (error) throw error;
     return data;
   }
 
