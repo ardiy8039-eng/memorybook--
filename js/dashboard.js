@@ -210,9 +210,10 @@
 
       const payload = {
           guest_name: name,
-            guest_message: message,
+            cover_message: message,
               guest_pin: pin
               };
+      
       
 
       try {
