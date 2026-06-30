@@ -156,11 +156,11 @@
         return;
       }
       guestMsgsEl.innerHTML = guests
-        .filter(g => g.message)
+        .filter(g => g.cover_message)
         .map(g => `
           <div class="message-card">
             <h4>${AnnDB.escapeHtml(g.name)}</h4>
-            <p>${AnnDB.escapeHtml(g.message)}</p>
+            <p>${AnnDB.escapeHtml(g.cover_message)}</p>
           </div>
         `).join('');
     }
