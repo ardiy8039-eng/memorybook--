@@ -172,7 +172,7 @@
     const { data, error } = await db
       .from(CONFIG.TABLE_MEDIA)
       .select('*')
-      .order('uploaded_at', { ascending: false });
+      .order('created_at', { ascending: false });
     if (error) { alert(error.message); throw error; }
     return data ?? [];
   }

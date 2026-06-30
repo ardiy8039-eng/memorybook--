@@ -101,7 +101,7 @@
       if (guest) {
         modalTitle.textContent   = 'Edit Guest';
         fieldName.value          = guest.name;
-        fieldMessage.value       = guest.message ?? '';
+        fieldMessage.value       = guest.cover_message ?? '';
         fieldPin.value           = guest.pin;
         fieldId.value            = guest.id;
       } else {
@@ -132,7 +132,7 @@
         const rows = guestCache.map(g => `
           <tr>
             <td>${AnnDB.escapeHtml(g.name)}</td>
-            <td class="truncate">${AnnDB.escapeHtml(g.message ?? '')}</td>
+            <td class="truncate">${AnnDB.escapeHtml(g.cover_message ?? '')}</td>
             <td><code>${AnnDB.escapeHtml(g.pin)}</code></td>
             <td>${new Date(g.created_at).toLocaleDateString()}</td>
             <td>
