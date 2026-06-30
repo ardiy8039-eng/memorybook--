@@ -208,7 +208,12 @@
         return;
       }
 
-      const payload = { name, message, pin };
+      const payload = {
+          guest_name: name,
+            guest_message: message,
+              guest_pin: pin
+              };
+      
 
       try {
         if (id) {
